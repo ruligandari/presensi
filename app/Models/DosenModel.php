@@ -8,7 +8,7 @@ class DosenModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'dosen';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_dosen';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
@@ -43,13 +43,13 @@ class DosenModel extends Model
     public function getLastID(){
     // get last id_supplier
     $builder = $this->db->table('dosen');
-    $builder->select('id');
-    $builder->orderBy('id', 'DESC');
+    $builder->select('id_dosen');
+    $builder->orderBy('id_dosen', 'DESC');
     $builder->limit(1);
     $query = $builder->get();
     if ($query->getNumRows() > 0) {
         $row = $query->getRow();
-        return $row->nim;
+        return $row->id_dosen;
     } else{
         return null;
     }

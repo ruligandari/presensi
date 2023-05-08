@@ -14,7 +14,7 @@ class MataKuliahController extends BaseController
         $mkModel = new MataKuliahModel();
         $data = [
             'title' => 'Data Mata Kuliah',
-            'mk' => $mkModel->innerTable()
+            'mk' => $mkModel->findAll()
         ];
 
         return view('Admin/matakuliah/index', $data);
@@ -23,9 +23,18 @@ class MataKuliahController extends BaseController
 
         $dosenMK = new DosenModel();
         $dosen = $dosenMK->findAll();
+        $mkModel = new MataKuliahModel();
+        $mk = $mkModel->getLastID();
+        if($mk == null){
+            $incrementIdMK = 1;
+        }else{
+            $slicedMK = substr($mk, 3);
+            $incrementIdMK = $slicedMK + 1;
+        }
         $data = [
             'title' => 'create',
-            'dosen' => $dosen
+            'dosen' => $dosen,
+            'id_mk' => 'MK'. sprintf('%04s', $incrementIdMK),
         ];
         return view('Admin/matakuliah/create',$data);
     }

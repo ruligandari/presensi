@@ -68,6 +68,44 @@ class WaktuPresensiController extends BaseController
         session()->setFlashdata('success', 'Data berhasil ditambahkan');
         return redirect()->to(base_url('admin/data-waktupresensi'));
     }
+    public function form_edit($id){
+        $waktuPresensiModel = new PresensiModel();
+        $mkModel = new MataKuliahModel();
+        $dosenModel = new DosenModel();
+        $kelasModel = new KelasModel();
+        $data = [
+            'title' => 'Update Presensi',
+            'presensi' => $waktuPresensiModel->cariData($id),
+            'mk' => $mkModel->findAll(),
+            'dosen' => $dosenModel->findAll(),
+            'kelas' => $kelasModel->findAll()
+        ];
+        return view('admin/waktupresensi/update',$data);
+    }
+    public function update($id){
+        $id_kelas = $this->request->getVar('id_kelas');
+        $id_mk = $this->request->getVar('id_mk');
+        $jam_masuk = $this->request->getVar('jam_masuk');
+        $jam_keluar = $this->request->getVar('jam_keluar');
+        $id_dosen = $this->request->getVar('id_dosen');
+        $tanggal = $this->request->getVar('tanggal');
+
+        $waktuPresensiModel = new PresensiModel();
+        $data = [
+            'id' => $id,
+            'id_kelas' => $id_kelas,
+            'id_mk' => $id_mk,
+            'jam_masuk' => $jam_masuk,
+            'jam_keluar' => $jam_keluar,
+            'tanggal' => $tanggal,
+            'id_dosen' => $id_dosen
+        ];
+        if($data){
+            $waktuPresensiModel->update($id,$data);
+            session()->setFlashdata('success', 'Data berhasil Diupdate');
+            return redirect()->to(base_url('admin/data-waktupresensi'));
+        }
+    }
     public function delete($id)
     {
         $modelPresensi = new PresensiModel();

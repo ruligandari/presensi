@@ -51,16 +51,16 @@
                               <td><?=$no++?></td>
                               <td><?=$mahasiswa['nim']?></td>
                               <td><?=$mahasiswa['nama']?></td>
-                              <td><?=$mahasiswa['kelas']?></td>
+                              <td><?=$mahasiswa['id_kelas']?></td>
                               <td><?=$mahasiswa['jurusan']?></td>
                               <td><?=$mahasiswa['jenis_kelamin']?></td>
                               <td><?=$mahasiswa['ttl']?></td>
                               <td><?=$mahasiswa['agama']?></td>
                               <td><?=$mahasiswa['alamat']?></td>
                               <td>
-                                <a href="<?= base_url('admin/mahasiswa/form-edit/'). $mahasiswa['nim']?>"
+                                <a href="<?= base_url('admin/mahasiswa/form_edit/'). $mahasiswa['nim']?>"
                                   class="btn btn-primary">Edit</a>
-                                <button data-target="#hapusModal<?=$mahasiswa['nim']?>" data-toggle="modal"
+                                <button data-target="#hapusModal<?= $mahasiswa['nim']?>" data-toggle="modal"
                                   class="btn btn-danger">Hapus</button>
                               </td>
                             </tbody>
@@ -79,4 +79,28 @@
     </div>
   </div>
 </div>
+<?php foreach ($mahasiswa as $mk) :?>
+        <div class="modal fade" id="hapusModal<?=$mk['nim']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="<?= base_url('admin/mahasiswa/delete/').$mk['nim']?>" method="POST">
+              <?= csrf_field()?>
+              <div class="modal-body">
+                Apakah anda yakin ingin menghapus Mahasiswa <?=$mk['nama']?> ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+<?php endforeach?>
 <?= $this->endSection()?>

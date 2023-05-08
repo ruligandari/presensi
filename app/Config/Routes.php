@@ -30,17 +30,22 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+//Admin
 $routes->get('login', 'Admin\LoginController::index');
 $routes->post('auth', 'Admin\LoginController::auth');
 $routes->get('logout', 'Admin\LoginController::logout');
-
+//Dosen
+$routes->get('dosen/login','Dosen\LoginController::index');
+$routes->post('dosen/auth','Dosen\LoginController::auth');
+$routes->get('dosen/logout','Dosen\LoginController::logout');
+//Master Admin
 $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->get('dashboard', 'Admin\DashboardController::index');
     // Mahasiswa
     $routes->get('data-mahasiswa', 'Admin\MahasiswaController::index');
     $routes->get('mahasiswa/create', 'Admin\MahasiswaController::create');
     $routes->post('mahasiswa/save', 'Admin\MahasiswaController::save');
-    $routes->get('mahasiswa/form-edit/(:any)', 'Admin\MahasiswaController::form-edit/$1');
+    $routes->get('mahasiswa/form_edit/(:any)', 'Admin\MahasiswaController::form_edit/$1');
     $routes->post('mahasiswa/update/(:any)','Admin\MahasiswaController::update/$1');
     $routes->get('mahasiswa/delete/(:any)', 'Admin\MahasiswaController::delete/$1');
     // Mata Kuliah
@@ -54,7 +59,7 @@ $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->get('data-waktupresensi', 'Admin\WaktuPresensiController::index');
     $routes->get('waktupresensi/create', 'Admin\WaktuPresensiController::create');
     $routes->post('waktupresensi/save', 'Admin\WaktuPresensiController::save');
-    $routes->get('waktupresensi/form-edit/(:any)', 'Admin\WaktuPresensiController::form-edit/$1');
+    $routes->get('waktupresensi/form_edit/(:any)', 'Admin\WaktuPresensiController::form_edit/$1');
     $routes->post('waktupresensi/update/(:any)','Admin\WaktuPresensiController::update/$1');
     $routes->get('waktupresensi/delete/(:any)', 'Admin\WaktuPresensiController::delete/$1');
     $routes->get('waktupresensi/rincian/(:any)', 'Admin\WaktuPresensiController::rincian/$1');
@@ -67,6 +72,14 @@ $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->get('presensi/delete/(:any)', 'Admin\PresensiController::delete/$1');
 });
 
+$routes->group('dosen', ['filter' => 'dosen/auth'], function($routes){
+    $routes->get('dashboard', 'Dosen\DashboardController::index');
+    // WaktuPresensi
+    $routes->get('data-waktupresensi', 'Dosen\WaktuPresensiController::index');
+    $routes->get('waktupresensi/form-edit/(:any)', 'Dosen\WaktuPresensiController::form_edit/$1');
+    $routes->post('waktupresensi/update/(:any)','Dosen\WaktuPresensiController::update/$1');
+    $routes->get('waktupresensi/rincian/(:any)', 'Dosen\WaktuPresensiController::rincian/$1');
+});
 
 /*
  * --------------------------------------------------------------------

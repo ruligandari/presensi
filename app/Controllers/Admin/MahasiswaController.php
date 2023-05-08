@@ -15,7 +15,6 @@ class MahasiswaController extends BaseController
             'title' => 'Data Mahasiswa',
             'mahasiswa' => $mahasiswaModel->innerTable()
         ];
-
         return view('Admin/mahasiswa/index', $data);
     }
     public function create(){
@@ -26,6 +25,16 @@ class MahasiswaController extends BaseController
             'kelas' => $kelas,
         ];
         return view('Admin/mahasiswa/create',$data);
+    }
+    public function form_edit($id){
+        $mahasiswaModel = new MahasiswaModel();
+        $kelasModel = new KelasModel();
+        $data = [
+            'title' => 'edit',
+            'mahasiswa' => $mahasiswaModel->cariData($id),
+            'kelas' => $kelasModel->findAll()
+        ];
+        return view('Admin/mahasiswa/update',$data);
     }
     public function save(){
 
@@ -54,6 +63,33 @@ class MahasiswaController extends BaseController
         $mahasiswaModel->insert($data);
         session()->setFlashdata('success', 'Data berhasil ditambahkan');
         return redirect()->to(base_url('admin/data-mahasiswa'));
+    }
+    public function update($id){
+        $nim = $this->request->getPost('nim');
+        $nama = $this->request->getPost('nama');
+        $id_kelas = $this->request->getPost('id_kelas');
+        $jurusan = $this->request->getVar('jurusan');
+        $jenis_kelamin = $this->request->getPost('jenis_kelamin');
+        $ttl = $this->request->getPost('ttl');
+        $agama = $this->request->getPost('agama');
+        $alamat = $this->request->getPost('alamat');
+
+        $mahasiswa = new MahasiswaModel();
+        $data = [
+            'nim' => $nim,
+            'nama' => $nama,
+            'id_kelas' => $id_kelas,
+            'jurusan' => $jurusan,
+            'jenis_kelamin' => $jenis_kelamin,
+            'ttl' => $ttl,
+            'agama' => $agama,
+            'alamat' => $alamat
+        ];
+        if($data){
+            $mahasiswa->update($id, $data);
+            session()->setFlashdata('success', 'Data berhasil diupdate');
+            return redirect()->to(base_url('admin/data-mahasiswa'));
+        }
     }
 }
 ;

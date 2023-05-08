@@ -1,4 +1,4 @@
-<?= $this->extend('layout/dashboard-admin')?>
+<?= $this->extend('layout/dashboard-dosen')?>
 
 <?= $this->section('content')?>
 <div class="content-wrapper">
@@ -15,43 +15,30 @@
                                             <div class="card-body">
                                                 <div class="d-sm-flex justify-content-center align-items-start">
                                                     <div>
-                                                        <h4 class="card-title card-title-dash">Input Data Mata Kuliah
+                                                        <h4 class="card-title card-title-dash">Input Presensi
                                                         </h4>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-center">
                                                 </div>
-                                                <form action="<?=base_url('admin/matakuliah/save');?>" method="post">
+                                                <form action="<?=base_url('dosen/waktupresensi/update/').$presensi['id']?>" method="post">
+                                                <?= csrf_field(); ?>
                                                     <div class="row">
                                                         <div class="form-group">
-                                                            <label>ID MK</label>
-                                                            <input type="text" class="form-control" name="id_mk" value="<?=$id_mk?>">
+                                                            <label>Jam Masuk</label>
+                                                            <input type="time" name="jam_masuk" class="form-control" value="<?=$presensi['jam_masuk']?>">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group">
-                                                            <label>Nama Mata Kuliah</label>
-                                                            <input type="text" class="form-control" name="nama_mk">
+                                                            <label>Jam Keluar</label>
+                                                            <input type="time" name="jam_keluar" class="form-control" value="<?=$presensi['jam_keluar']?>">
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label>Dosen Pengampu</label>
-
-                                                            <select name="id_dosen" class="form-control">
-                                                                <?php foreach ($dosen as $dosen): ?>
-
-                                                                <option value="<?=$dosen['id_dosen']?>"><?=$dosen['nama']?>
-                                                                </option>
-                                                                <?php endforeach?>
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                                    </div>                                      
                                                     <div class="row">
                                                         <div class="form-group">
                                                             <button type="submit"
-                                                                class="btn btn-lg btn-primary" style="color:white;">Simpan</button> &nbsp;
+                                                                class="btn btn-primary">Update</button> &nbsp;
                                                         </div>
                                                     </div>
                                                 </form>

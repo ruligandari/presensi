@@ -1,4 +1,4 @@
-<?= $this->extend('layout/dashboard-admin')?>
+<?= $this->extend('layout/dashboard-dosen')?>
 
 <?= $this->section('content')?>
         <div class="content-wrapper">
@@ -14,18 +14,8 @@
                             <div class="card card-rounded">
                               <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-start">
-                                <?php 
-                                if (session()->getFlashdata('success')) {
-                                    echo '<div class="alert alert-success" role="alert">'.session()->getFlashdata('success').'</div>';
-                                } else if (session()->getFlashdata('error')){
-                                    echo '<div class="alert alert-danger" role="alert">'.session()->getFlashdata('error').'</div>';
-                                }
-                                ?>
                                   <div>
-                                    <h4 class="card-title card-title-dash">Kelola Data Presensi</h4>
-                                  </div>
-                                  <div>
-                                    <a href="<?=base_url('admin/waktupresensi/create')?>"  type="button" class="btn btn-success">Tambah Data</a>
+                                    <h4 class="card-title card-title-dash">Data Waktu Presensi</h4>
                                   </div>
                                 </div>
                                 <div class="table-responsive">
@@ -55,9 +45,8 @@
                                             <td><?=$presensi['nama']?></td>
                                             <td><?=$presensi['tanggal']?></td>
                                             <td>
-                                                <a href="<?=base_url('admin/waktupresensi/form_edit/').$presensi['id']?>" class="btn btn-primary">Edit</a>
-                                                <a href="#" class="btn btn-danger">Hapus</a>  
-                                                <a href="<?= base_url('admin/waktupresensi/rincian/'). $presensi['id_kelas']?>"
+                                                <a href="<?= base_url('dosen/waktupresensi/form-edit/').$presensi['id']?>" class="btn btn-primary">Edit</a>  
+                                                <a href="<?= base_url('dosen/waktupresensi/rincian/'). $presensi['id_kelas']?>"
                                   class="btn btn-success">Rincian</a>  
                                             </td>
                                         </tbody>

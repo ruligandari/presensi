@@ -38,7 +38,7 @@
                               <td><?=$no++?></td>
                               <td><?=$mk['id_mk']?></td>
                               <td><?=$mk['nama_mk']?></td>
-                              <td><?=$mk['nama']?></td>
+                              <td><?=$mk['id_dosen']?></td>
                               <td>
                                 <a href="<?= base_url('admin/matakuliah/form-edit/'). $mk['id_mk']?>"
                                   class="btn btn-primary">Edit</a>
@@ -61,4 +61,28 @@
     </div>
   </div>
 </div>
+<?php foreach ($mk as $mk) :?>
+        <div class="modal fade" id="hapusModal<?=$mk['id_mk']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="<?= base_url('admin/mahasiswa/delete/').$mk['id_mk']?>" method="POST">
+              <?= csrf_field()?>
+              <div class="modal-body">
+                Apakah anda yakin ingin menghapus Mahasiswa <?=$mk['id_mk']?> ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+<?php endforeach?>
 <?= $this->endSection()?>

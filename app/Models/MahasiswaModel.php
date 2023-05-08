@@ -67,4 +67,11 @@ class MahasiswaModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
+    public function cariData($id){
+        $builder = $this->db->table('mahasiswa');
+        $builder->join('kelas','mahasiswa.id_kelas = kelas.id_kelas');
+        $builder->where('nim',$id);
+        $query = $builder->get();
+        return $query->getRowArray();
+    }
 }

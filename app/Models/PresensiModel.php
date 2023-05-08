@@ -62,4 +62,22 @@ class PresensiModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
+    public function getByDosen(){
+        $builder = $this->db->table('daftar_presensi');
+        $builder->join('mata_kuliah','daftar_presensi.id_mk = mata_kuliah.id_mk');
+        $builder->join('dosen','daftar_presensi.id_dosen = dosen.id_dosen');
+        $builder->join('kelas','daftar_presensi.id_kelas = kelas.id_kelas');
+        $builder->where('daftar_presensi.id_dosen', session()->get('id_dosen'));
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+    public function cariData($id){
+        $builder = $this->db->table('daftar_presensi');
+        $builder->join('mata_kuliah','daftar_presensi.id_mk = mata_kuliah.id_mk');
+        $builder->join('dosen','daftar_presensi.id_dosen = dosen.id_dosen');
+        $builder->join('kelas','daftar_presensi.id_kelas = kelas.id_kelas');
+        $builder->where('id', $id);
+        $query = $builder->get();
+        return $query->getRowArray();
+    }
 }
