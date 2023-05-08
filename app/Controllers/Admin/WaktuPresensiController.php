@@ -14,10 +14,9 @@ class WaktuPresensiController extends BaseController
     public function index()
     {
         $presensiModel = new PresensiModel();
-        $presensi = $presensiModel->findAll();
         $data = [
             'title' => 'Data Presensi',
-            'presensi' => $presensi
+            'presensi' => $presensiModel->joinTable()
         ];
 
         return view('Admin/waktupresensi/index', $data);
@@ -30,7 +29,7 @@ class WaktuPresensiController extends BaseController
         $dosenModel = new DosenModel();
         $dosen = $dosenModel->findAll();
         $data = [
-            'title' => 'Form Input Presensi',
+            'title' => 'Input Data Waktu Presensi',
             'mk' => $mk,
             'kelas' => $kelas,
             'dosen' => $dosen
@@ -39,12 +38,10 @@ class WaktuPresensiController extends BaseController
     }
     public function rincian($kelas){
         $mahasiswaModel = new MahasiswaModel();
-        $mahasiswaModel->byKelas($kelas);
         $data = [
             'title' => 'Rincian Presensi',
-            'kelas' => $mahasiswaModel
-        ];
-        dd($data);
+            'kelas' => $mahasiswaModel->byKelas($kelas)
+        ]; 
         return view('Admin/waktupresensi/rincian',$data);
     }
     public function save(){

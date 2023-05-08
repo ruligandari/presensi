@@ -14,19 +14,11 @@
                     <div class="card card-rounded">
                       <div class="card-body">
                         <div class="d-sm-flex justify-content-between align-items-start">
-                          <?php 
-                                if (session()->getFlashdata('success')) {
-                                    echo '<div class="alert alert-success" role="alert">'.session()->getFlashdata('success').'</div>';
-                                } else if (session()->getFlashdata('error')){
-                                    echo '<div class="alert alert-danger" role="alert">'.session()->getFlashdata('error').'</div>';
-                                }
-                                ?>
                           <div>
-                            <h4 class="card-title card-title-dash">Kelola Data Mahasiswa</h4>
+                            <h4 class="card-title card-title-dash">Kelola Data Dosen</h4>
                           </div>
                           <div>
-                            <a href="<?=base_url('admin/mahasiswa/create')?>" type="button"
-                              class="btn btn-success">Tambah Data</a>
+                            <a href="#" type="button" class="btn btn-success">Tambah Data</a>
                           </div>
                         </div>
                         <div class="table-responsive">
@@ -34,29 +26,23 @@
                             <thead>
                               <tr>
                                 <th>No</th>
-                                <th>NIM</th>
-                                <th>Nama Mahasiswa</th>
-                                <th>Kelas</th>
-                                <th>Jurusan</th>
-                                <th>Jenis Kelamin</th>
-                                <th>TTL</th>
-                                <th>Agama</th>
-                                <th>Alamat</th>
+                                <th>ID MK</th>
+                                <th>Nama Mata Kuliah</th>
+                                <th>Jam Masuk</th>
+                                <th>Jam Keluar</th>
+                                <th>Dosen Pengampu</th>
                                 <th>Aksi</th>
                               </tr>
                             </thead>
                             <?php $no = 1?>
-                            <?php foreach ($mahasiswa as $mahasiswa): ?>
+                            <?php foreach ($mk as $mk): ?>
                             <tbody>
                               <td><?=$no++?></td>
-                              <td><?=$mahasiswa['nim']?></td>
-                              <td><?=$mahasiswa['nama']?></td>
-                              <td><?=$mahasiswa['kelas']?></td>
-                              <td><?=$mahasiswa['jurusan']?></td>
-                              <td><?=$mahasiswa['jenis_kelamin']?></td>
-                              <td><?=$mahasiswa['ttl']?></td>
-                              <td><?=$mahasiswa['agama']?></td>
-                              <td><?=$mahasiswa['alamat']?></td>
+                              <td><?=$mk['id_mk']?></td>
+                              <td><?=$mk['nama_mk']?></td>
+                              <td><?=$mk['jam_masuk']?></td>
+                              <td><?=$mk['jam_keluar']?></td>
+                              <td><?=$mk['id_dosen']?></td>
                               <td>
                                 <a href="<?= base_url('admin/mahasiswa/form-edit/'). $mahasiswa['nim']?>"
                                   class="btn btn-primary">Edit</a>
@@ -79,4 +65,5 @@
     </div>
   </div>
 </div>
+
 <?= $this->endSection()?>

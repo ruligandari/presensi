@@ -41,15 +41,17 @@
                                         <tbody>
                                             <td><?=$no++?></td>
                                             <td><?=$presensi['id']?></td>
-                                            <td><?=$presensi['id_kelas']?></td>
-                                            <td><?=$presensi['id_mk']?></td>
+                                            <td><?=$presensi['kelas']?></td>
+                                            <td><?=$presensi['nama_mk']?></td>
                                             <td><?=$presensi['jam_masuk']?></td>
                                             <td><?=$presensi['jam_keluar']?></td>
-                                            <td><?=$presensi['id_dosen']?></td>
+                                            <td><?=$presensi['nama']?></td>
                                             <td><?=$presensi['tanggal']?></td>
                                             <td>
                                                 <a href="#" class="btn btn-primary">Edit</a>
-                                                <a href="#" class="btn btn-danger">Hapus</a>
+                                                <a href="#" class="btn btn-danger">Hapus</a>  
+                                                <a href="<?= base_url('admin/waktupresensi/rincian/'). $presensi['id_kelas']?>"
+                                  class="btn btn-success">Rincian</a>  
                                             </td>
                                         </tbody>
                                         <?php endforeach?>

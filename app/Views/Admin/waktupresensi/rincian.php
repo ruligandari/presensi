@@ -15,10 +15,7 @@
                               <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-start">
                                   <div>
-                                    <h4 class="card-title card-title-dash">Kelola Data Mahasiswa</h4>
-                                  </div>
-                                  <div>
-                                    <a href="<?=base_url('admin/waktupresensi/create')?>"  type="button" class="btn btn-success">Tambah Data</a>
+                                    <h4 class="card-title card-title-dash">Nama Mahasiswa</h4>
                                   </div>
                                 </div>
                                 <div class="table-responsive">
@@ -26,31 +23,20 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>ID</th>
+                                                <th>NIM</th>
+                                                <th>Nama</th>
                                                 <th>Kelas</th>
-                                                <th>Mata Kuliah</th>
-                                                <th>Jam Masuk</th>
-                                                <th>Jam Keluar</th>
-                                                <th>Dosen</th>
-                                                <th>Tanggal</th>
-                                                <th>Aksi</th>
+                                                <th>Jurusan</th>
                                             </tr>
                                         </thead>
                                         <?php $no = 1?>
-                                        <?php foreach ($presensi as $presensi): ?>
+                                        <?php foreach ($kelas as $mahasiswa): ?>
                                         <tbody>
                                             <td><?=$no++?></td>
-                                            <td><?=$presensi['id']?></td>
-                                            <td><?=$presensi['id_kelas']?></td>
-                                            <td><?=$presensi['id_mk']?></td>
-                                            <td><?=$presensi['jam_masuk']?></td>
-                                            <td><?=$presensi['jam_keluar']?></td>
-                                            <td><?=$presensi['id_dosen']?></td>
-                                            <td><?=$presensi['tanggal']?></td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary">Edit</a>
-                                                <a href="#" class="btn btn-danger">Hapus</a>
-                                            </td>
+                                            <td><?=$mahasiswa['nim']?></td>
+                                            <td><?=$mahasiswa['nama']?></td>
+                                            <td><?=$mahasiswa['kelas']?></td>
+                                            <td><?=$mahasiswa['jurusan']?></td>
                                         </tbody>
                                         <?php endforeach?>
                                     </table>
