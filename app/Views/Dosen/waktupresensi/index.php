@@ -46,8 +46,7 @@
                                             <td><?=$presensi['tanggal']?></td>
                                             <td>
                                                 <a href="<?= base_url('dosen/waktupresensi/form-edit/').$presensi['id']?>" class="btn btn-primary">Edit</a>  
-                                                <a href="<?= base_url('dosen/waktupresensi/rincian/'). $presensi['id_kelas']?>"
-                                  class="btn btn-success">Rincian</a>  
+                                               
                                             </td>
                                         </tbody>
                                         <?php endforeach?>

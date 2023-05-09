@@ -14,7 +14,7 @@ class MataKuliahController extends BaseController
         $mkModel = new MataKuliahModel();
         $data = [
             'title' => 'Data Mata Kuliah',
-            'mk' => $mkModel->findAll()
+            'mk' => $mkModel->innerTable()
         ];
 
         return view('Admin/matakuliah/index', $data);

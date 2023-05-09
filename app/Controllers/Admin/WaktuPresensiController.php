@@ -8,6 +8,7 @@ use App\Models\KelasModel;
 use App\Models\MahasiswaModel;
 use App\Models\MataKuliahModel;
 use App\Models\PresensiModel;
+use App\Models\PresensiDataModel;
 
 class WaktuPresensiController extends BaseController
 {
@@ -37,17 +38,16 @@ class WaktuPresensiController extends BaseController
         return view ('Admin/waktupresensi/create',$data);
     }
     public function rincian($kelas){
-        $mahasiswaModel = new MahasiswaModel();
+        $presensiModel = new PresensiDataModel();
         $data = [
             'title' => 'Rincian Presensi',
-            'kelas' => $mahasiswaModel->byKelas($kelas)
+            'mahasiswa' => $presensiModel->byKelas($kelas)
         ]; 
         return view('Admin/waktupresensi/rincian',$data);
     }
     public function save(){
 
-        $presensiModel = new PresensiModel();
-
+        $waktupresensiModel = new PresensiModel();
         $id_kelas = $this->request->getPost('id_kelas');
         $id_mk = $this->request->getPost('id_mk');
         $jam_masuk = $this->request->getPost('jam_masuk');
@@ -64,7 +64,23 @@ class WaktuPresensiController extends BaseController
             'id_dosen' => $id_dosen
         ];
 
-        $presensiModel->insert($data);
+        $waktupresensiModel->insert($data);
+        $id_presensi = $waktupresensiModel->insertID();
+        $presensiDataModel = new PresensiDataModel();
+        //Create Presensi
+        $mahasiswaModel = new MahasiswaModel();
+        $dataMahasiswa = $mahasiswaModel->byKelas($id_kelas);
+        foreach($dataMahasiswa as $mahasiswa){
+            $data = [
+                'nim' => $mahasiswa['nim'],
+                'id_kelas' => $id_kelas,
+                'id_mk' => $id_mk,
+                'id' => $id_presensi,
+                'status' => 'tidak hadir'
+            ];
+            $presensiDataModel->insert($data);
+        }
+
         session()->setFlashdata('success', 'Data berhasil ditambahkan');
         return redirect()->to(base_url('admin/data-waktupresensi'));
     }

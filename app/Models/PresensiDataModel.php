@@ -4,11 +4,11 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PresensiModel extends Model
+class PresensiDataModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'daftar_presensi';
-    protected $primaryKey       = 'id';
+    protected $table            = 'presensi';
+    protected $primaryKey       = 'id_presensi';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
@@ -42,14 +42,14 @@ class PresensiModel extends Model
 
     public function getLastID(){
     // get last id_supplier
-    $builder = $this->db->table('daftar_presensi');
-    $builder->select('id');
-    $builder->orderBy('id', 'DESC');
+    $builder = $this->db->table('presensi');
+    $builder->select('id_presensi');
+    $builder->orderBy('id_presensi', 'DESC');
     $builder->limit(1);
     $query = $builder->get();
     if ($query->getNumRows() > 0) {
         $row = $query->getRow();
-        return $row->id;
+        return $row->id_presensi;
     } else{
         return null;
     }
@@ -80,13 +80,24 @@ class PresensiModel extends Model
         $query = $builder->get();
         return $query->getRowArray();
     }
-    public function cariDataKelas($kelas){
-        $builder = $this->db->table('daftar_presensi');
-        $builder->join('mata_kuliah','daftar_presensi.id_mk = mata_kuliah.id_mk');
-        $builder->join('dosen','daftar_presensi.id_dosen = dosen.id_dosen');
-        $builder->join('kelas','daftar_presensi.id_kelas = kelas.id_kelas');
-        $builder->where('kelas.id_kelas', $kelas);
+    public function byKelas($kelas){
+        $builder = $this->db->table('presensi');
+        $builder->join('mata_kuliah','presensi.id_mk = mata_kuliah.id_mk');
+        $builder->join('mahasiswa','presensi.nim = mahasiswa.nim');
+        $builder->join('kelas','presensi.id_kelas = kelas.id_kelas');
+        $builder->join('daftar_presensi','presensi.id = daftar_presensi.id');
+        $builder->where('daftar_presensi.id', $kelas);
         $query = $builder->get();
-        return $query->getRowArray();
+        return $query->getResultArray();
+    }
+    public function byDosen(){
+        $builder = $this->db->table('presensi');
+        $builder->join('mata_kuliah','presensi.id_mk = mata_kuliah.id_mk');
+        $builder->join('mahasiswa','presensi.nim = mahasiswa.nim');
+        $builder->join('kelas','presensi.id_kelas = kelas.id_kelas');
+        $builder->join('daftar_presensi','presensi.id = daftar_presensi.id');
+        $builder->where('daftar_presensi.id_dosen', session()->get('id_dosen'));
+        $query = $builder->get();
+        return $query->getResultArray();
     }
 }
