@@ -73,8 +73,16 @@
         const searchValue = searchInput.value.toUpperCase();
         for (let i = 1; i < tableRows.length; i++) {
             const row = tableRows[i];
-            const mk = row.getElementsByTagName('td')[5];
-            if (mk.textContent.toUpperCase().indexOf(searchValue) > -1) {
+            const cells = row.getElementsByTagName('td');
+            let matchFound = false;
+            for (let j = 0; j < cells.length; j++) {
+                const cellText = cells[j].textContent.toUpperCase();
+                if (cellText.indexOf(searchValue) > -1) {
+                    matchFound = true;
+                    break;
+                }
+            }
+            if (matchFound) {
                 row.style.display = '';
             } else {
                 row.style.display = 'none';
