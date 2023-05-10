@@ -38,6 +38,9 @@ $routes->get('logout', 'Admin\LoginController::logout');
 $routes->get('dosen/login','Dosen\LoginController::index');
 $routes->post('dosen/auth','Dosen\LoginController::auth');
 $routes->get('dosen/logout','Dosen\LoginController::logout');
+
+// Presensi Mahasiswa Face Recogintion
+$routes->post('absen', 'AbsensiController::create');
 //Master Admin
 $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->get('dashboard', 'Admin\DashboardController::index');

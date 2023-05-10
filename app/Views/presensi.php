@@ -5,13 +5,25 @@
 <div class="content-wrapper d-flex align-items-center auth px-0">
     <div class="row w-100 mx-0">
         <div class="col-lg-5 mx-auto">
+            <?php
+            if (session()->getFlashdata('msg')) {
+              echo '<div class="alert alert-success" role="alert">';
+              echo session()->getFlashdata('msg');
+              echo '</div>';
+            } else if (session()->getFlashdata('err')){
+                echo '<div class="alert alert-danger" role="alert">';
+              echo session()->getFlashdata('err');
+              echo '</div>';
+            }
+            ?>
             <h2 class="text-center mb-3">Sistem Presensi Face Recognition</h2>
             <!-- <video autoplay="true" id="webcam-video"></video> -->
             <div id="video" class="text-center"></div>
             <div class="label text-center" id="label"></div>
             <center>
-                <form action="<?= base_url('/absen')?>" method="POST">
-                <input type="text" id="absen" hidden>
+                <form action="<?= base_url('absen/')?>" method="POST">
+                <input type="text" id="absen" name="absen" hidden>
+                <input type="time" id="jam_sekarang" value="<?=date('H:i:s')?>" name="jam_sekarang" hidden> 
                 <button type="submit" class="btn btn-success mt-3">Presensi</button>
                 </form>
             </center>
@@ -79,6 +91,7 @@
             labelContainer.childNodes[i].innerHTML = classPrediction;
             const getNama = prediction[i].className;
             document.getElementById('absen').value = getNama;
+            console.log(getNama);
         } else {
             labelContainer.childNodes[i].innerHTML = ""; // set to empty string if probability < 0.7
         }

@@ -78,5 +78,10 @@ class WaktuPresensiController extends BaseController
         session()->setFlashdata('success', 'Data berhasil dihapus');
         return redirect()->to(base_url('admin/data-waktupresensi'));
     }
+
+    public function create_presensi(){
+        $wajah = $this->request->getVar('absen');
+        dd($wajah);
+    }
 }
  
