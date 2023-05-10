@@ -13,7 +13,7 @@ class MahasiswaController extends BaseController
         $mahasiswaModel = new MahasiswaModel();
         $data = [
             'title' => 'Data Mahasiswa',
-            'mahasiswa' => $mahasiswaModel->innerTable()
+            'mahasiswa' => $mahasiswaModel->findAll()
         ];
         return view('Admin/mahasiswa/index', $data);
     }
