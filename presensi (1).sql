@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Bulan Mei 2023 pada 06.48
+-- Waktu pembuatan: 10 Bulan Mei 2023 pada 08.51
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -42,8 +42,9 @@ CREATE TABLE `daftar_presensi` (
 --
 
 INSERT INTO `daftar_presensi` (`id`, `id_kelas`, `id_mk`, `jam_masuk`, `jam_keluar`, `tanggal`, `id_dosen`) VALUES
-(3, 2, '2001', '19:27:00', '21:27:00', '2023-05-06', 2),
-(4, 1, '2001', '20:22:00', '21:22:00', '2023-05-06', 2);
+(11, 1, '3001', '20:58:00', '23:58:00', '2023-05-09', 1),
+(12, 1, '2001', '08:30:00', '09:30:00', '2023-05-09', 1),
+(13, 2, '2001', '22:07:00', '23:07:00', '2023-05-09', 2);
 
 -- --------------------------------------------------------
 
@@ -64,8 +65,9 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`id_dosen`, `nama`, `nip`, `email`, `password`) VALUES
-(1, 'Dosen 1', '12345678', 'dosen1@gmail.com', '$2y$10$ocTDhpXtGua1VyB7divrGO.L8gNSfEWXwfkH9wTGTSv21lF4bFGDa'),
-(2, 'Dosen 2', '1234567', 'dosen2@gmail.com', '$2y$10$MRbjVejc13cfGkhdPgrJp.ET0mDxetLYLVj5z10oIA97sX47uWzfe');
+(1, 'Dosen 1', '12345678', 'dosen1@gmail.com', '$2y$10$.9QXvNjswQP.Mvd/bK1CUOj3vgmHVuJzXCRL1pAvIMqweB5sH5Ff6'),
+(2, 'Dosen 2', '1234567', 'dosen2@gmail.com', '$2y$10$MRbjVejc13cfGkhdPgrJp.ET0mDxetLYLVj5z10oIA97sX47uWzfe'),
+(8, 'Pebi Pebriansah', '321022160200001', 'pebipebriansah160200@gmail.com', '$2y$10$u3/CDCFNCN7REGq3ts7WJeXDjBfSk7RdvAZuG6aQ6Gc4NU16j0RFO');
 
 -- --------------------------------------------------------
 
@@ -108,9 +110,9 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nim`, `nama`, `id_kelas`, `jurusan`, `jenis_kelamin`, `ttl`, `agama`, `alamat`) VALUES
-('2017081002', 'Anita Azura', 2, 'Teknik Informatika', 'P', 'Majalengka 16-02-2000', 'Islam', 'Majalengka'),
 ('20180810025', 'Pebi Pebriansah', 1, 'Teknik Informatika', 'L', 'Majalengka 16-02-2000', 'Islam', 'Sukamanah'),
-('20180810026', 'Ruli Gandari', 2, 'Teknik Informatika', 'L', 'Majalengka 16-02-2000', 'Kristen', 'SAKjkasdas');
+('20180810026', 'Ruli Gandari', 2, 'Teknik Informatika', 'L', 'Majalengka 16-02-2000', 'Kristen', 'SAKjkasdas'),
+('2348098001', 'Livia', 1, 'Teknik Informatika', 'P', 'Majalengka 16-02-2000', 'Hindu', 'Sukamanah');
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,10 @@ CREATE TABLE `mata_kuliah` (
 --
 
 INSERT INTO `mata_kuliah` (`id_mk`, `nama_mk`, `id_dosen`) VALUES
-('2001', 'Filsafat', '2');
+('2001', 'Filsafat', '2'),
+('3001', 'Matematika', '2'),
+('3002', 'Matematika', '2'),
+('3003', 'Matematika', '1');
 
 -- --------------------------------------------------------
 
@@ -156,6 +161,32 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 (2, '2023-03-16-175739', 'App\\Database\\Migrations\\MahasiswaTabel', 'default', 'App', 1678989971, 2),
 (3, '2023-03-16-180724', 'App\\Database\\Migrations\\PresensiTabel', 'default', 'App', 1678991068, 3),
 (4, '2023-05-01-084555', 'App\\Database\\Migrations\\StaffTabel', 'default', 'App', 1682931203, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `presensi`
+--
+
+CREATE TABLE `presensi` (
+  `id_presensi` int(11) NOT NULL,
+  `nim` varchar(255) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `id_mk` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL,
+  `status` enum('hadir','tidak hadir') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `presensi`
+--
+
+INSERT INTO `presensi` (`id_presensi`, `nim`, `id_kelas`, `id_mk`, `id`, `status`) VALUES
+(1, '20180810025', 1, '3001', 11, 'tidak hadir'),
+(2, '2348098001', 1, '3001', 11, 'tidak hadir'),
+(3, '20180810025', 1, '2001', 12, 'tidak hadir'),
+(4, '2348098001', 1, '2001', 12, 'tidak hadir'),
+(5, '20180810026', 2, '2001', 13, 'tidak hadir');
 
 -- --------------------------------------------------------
 
@@ -226,6 +257,16 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `presensi`
+--
+ALTER TABLE `presensi`
+  ADD PRIMARY KEY (`id_presensi`),
+  ADD KEY `nim` (`nim`),
+  ADD KEY `id_kelas` (`id_kelas`),
+  ADD KEY `id_mk` (`id_mk`),
+  ADD KEY `id` (`id`);
+
+--
 -- Indeks untuk tabel `staff`
 --
 ALTER TABLE `staff`
@@ -240,13 +281,13 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT untuk tabel `daftar_presensi`
 --
 ALTER TABLE `daftar_presensi`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id_dosen` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_dosen` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `kelas`
@@ -259,6 +300,12 @@ ALTER TABLE `kelas`
 --
 ALTER TABLE `migrations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `presensi`
+--
+ALTER TABLE `presensi`
+  MODIFY `id_presensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
