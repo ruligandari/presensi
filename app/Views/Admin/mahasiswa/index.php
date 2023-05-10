@@ -49,16 +49,16 @@
                             <?php foreach ($mahasiswa as $row): ?>
                             <tbody>
                               <td><?=$no++?></td>
-                              <td><?=$mahasiswa['nim']?></td>
-                              <td><?=$mahasiswa['nama']?></td>
-                              <td><?=$mahasiswa['id_kelas']?></td>
-                              <td><?=$mahasiswa['jurusan']?></td>
-                              <td><?=$mahasiswa['jenis_kelamin']?></td>
-                              <td><?=$mahasiswa['ttl']?></td>
-                              <td><?=$mahasiswa['agama']?></td>
-                              <td><?=$mahasiswa['alamat']?></td>
+                              <td><?=$row['nim']?></td>
+                              <td><?=$row['nama']?></td>
+                              <td><?=$row['id_kelas']?></td>
+                              <td><?=$row['jurusan']?></td>
+                              <td><?=$row['jenis_kelamin']?></td>
+                              <td><?=$row['ttl']?></td>
+                              <td><?=$row['agama']?></td>
+                              <td><?=$row['alamat']?></td>
                               <td>
-                                <a href="<?= base_url('admin/mahasiswa/form_edit/'). $mahasiswa['nim']?>"
+                                <a href="<?= base_url('admin/mahasiswa/form_edit/'). $row['nim']?>"
                                   class="btn btn-primary">Edit</a>
                                 <button data-bs-target="#hapusModal<?=$row['nim']?>" data-bs-toggle="modal"
                                   class="btn btn-danger">Hapus</button>
@@ -102,7 +102,6 @@
             </div>
           </div>
         </div>
->>>>>>> Stashed changes
 <?php endforeach?>
 <?= $this->endSection()?>
 
