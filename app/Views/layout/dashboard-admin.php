@@ -243,16 +243,16 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('admin/data-waktupresensi')?>">
               <i class="mdi mdi-account-box-outline menu-icon"></i>
-              <span class="menu-title">Waktu Presensi</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('admin/data-presensi')?>">
-              <i class="mdi mdi-account-box-outline menu-icon"></i>
               <span class="menu-title">Data Presensi</span>
             </a>
           </li>
-
+          <li class="nav-item nav-category">Data Dosen</li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('admin/data-dosen')?>">
+              <i class="mdi mdi-account-box-outline menu-icon"></i>
+              <span class="menu-title">Data Dosen</span>
+            </a>
+          </li>
           <li class="nav-item nav-category">Data Mata Kuliah</li>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('admin/data-matakuliah')?>">

@@ -4,7 +4,7 @@ namespace App\Controllers\Dosen;
 
 use App\Controllers\BaseController;
 use App\Models\PresensiModel;
-use App\Models\MahasiswaModel;
+use App\Models\PresensiDataModel;
 
 class WaktuPresensiController extends BaseController
 {
@@ -19,11 +19,11 @@ class WaktuPresensiController extends BaseController
         return view('Dosen/waktupresensi/index', $data);
     }
     public function rincian($kelas){
-        $mahasiswaModel = new MahasiswaModel();
+        $presensiModel = new PresensiDataModel();
         $data = [
             'title' => 'Rincian Presensi',
-            'kelas' => $mahasiswaModel->byKelas($kelas)
-        ]; 
+            'mahasiswa' => $presensiModel->byKelas($kelas)
+        ];
         return view('Dosen/waktupresensi/rincian',$data);
     }
     public function form_edit($id){

@@ -91,5 +91,11 @@ class MahasiswaController extends BaseController
             return redirect()->to(base_url('admin/data-mahasiswa'));
         }
     }
+    public function delete($id){
+        $mahasiswaModel = new MahasiswaModel();
+        $mahasiswaModel->delete($id);
+        session()->setFlashdata('success', 'Data berhasil dihapus');
+        return redirect()->to(base_url('admin/data-mahasiswa'));
+    }
 }
 ;

@@ -27,16 +27,24 @@
                                                 <th>Nama</th>
                                                 <th>Kelas</th>
                                                 <th>Jurusan</th>
+                                                <th>MK</th>
+                                                <th>Jam Masuk</th>
+                                                <th>Jam Keluar</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <?php $no = 1?>
-                                        <?php foreach ($kelas as $mahasiswa): ?>
+                                        <?php foreach ($mahasiswa as $mk): ?>
                                         <tbody>
                                             <td><?=$no++?></td>
-                                            <td><?=$mahasiswa['nim']?></td>
-                                            <td><?=$mahasiswa['nama']?></td>
-                                            <td><?=$mahasiswa['kelas']?></td>
-                                            <td><?=$mahasiswa['jurusan']?></td>
+                                            <td><?=$mk['nim']?></td>
+                                            <td><?=$mk['nama']?></td>
+                                            <td><?=$mk['kelas']?></td>
+                                            <td><?=$mk['jurusan']?></td>
+                                            <td><?=$mk['nama_mk']?></td>
+                                            <td><?=$mk['jam_masuk']?></td>
+                                            <td><?=$mk['jam_keluar']?></td>
+                                            <td><?=$mk['status']?></td>
                                         </tbody>
                                         <?php endforeach?>
                                     </table>

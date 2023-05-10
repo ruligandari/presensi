@@ -239,12 +239,12 @@
               <span class="menu-title">Waktu Presensi</span>
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="<?= base_url('dosen/data-presensi')?>">
               <i class="mdi mdi-account-box-outline menu-icon"></i>
               <span class="menu-title">Data Presensi</span>
             </a>
-          </li> -->
+          </li>
         </ul>
       </nav>
       <!-- partial -->

@@ -47,7 +47,15 @@ $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->post('mahasiswa/save', 'Admin\MahasiswaController::save');
     $routes->get('mahasiswa/form_edit/(:any)', 'Admin\MahasiswaController::form_edit/$1');
     $routes->post('mahasiswa/update/(:any)','Admin\MahasiswaController::update/$1');
-    $routes->get('mahasiswa/delete/(:any)', 'Admin\MahasiswaController::delete/$1');
+    $routes->post('mahasiswa/delete/(:any)', 'Admin\MahasiswaController::delete/$1');
+
+    // Dosen
+    $routes->get('data-dosen', 'Admin\DosenController::index');
+    $routes->get('dosen/create', 'Admin\DosenController::create');
+    $routes->post('dosen/save', 'Admin\DosenController::save');
+    $routes->get('dosen/form_edit/(:any)', 'Admin\DosenController::form_edit/$1');
+    $routes->post('dosen/update/(:any)','Admin\DosenController::update/$1');
+    $routes->get('dosen/delete/(:any)', 'Admin\DosenController::delete/$1');
     // Mata Kuliah
     $routes->get('data-matakuliah','Admin\MataKuliahController::index');
     $routes->get('matakuliah/create', 'Admin\MataKuliahController::create');
@@ -61,7 +69,7 @@ $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->post('waktupresensi/save', 'Admin\WaktuPresensiController::save');
     $routes->get('waktupresensi/form_edit/(:any)', 'Admin\WaktuPresensiController::form_edit/$1');
     $routes->post('waktupresensi/update/(:any)','Admin\WaktuPresensiController::update/$1');
-    $routes->get('waktupresensi/delete/(:any)', 'Admin\WaktuPresensiController::delete/$1');
+    $routes->post('waktupresensi/delete/(:any)', 'Admin\WaktuPresensiController::delete/$1');
     $routes->get('waktupresensi/rincian/(:any)', 'Admin\WaktuPresensiController::rincian/$1');
     //Presensi
     $routes->get('data-presensi', 'Admin\PresensiController::index');
@@ -79,6 +87,8 @@ $routes->group('dosen', ['filter' => 'dosen/auth'], function($routes){
     $routes->get('waktupresensi/form-edit/(:any)', 'Dosen\WaktuPresensiController::form_edit/$1');
     $routes->post('waktupresensi/update/(:any)','Dosen\WaktuPresensiController::update/$1');
     $routes->get('waktupresensi/rincian/(:any)', 'Dosen\WaktuPresensiController::rincian/$1');
+    //Presensi
+    $routes->get('data-presensi', 'Dosen\PresensiController::index');
 });
 
 /*
