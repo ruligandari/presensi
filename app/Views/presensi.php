@@ -24,7 +24,7 @@
                 <form action="<?= base_url('absen/')?>" method="POST">
                 <input type="text" id="absen" name="absen" hidden>
                 <input type="time" id="jam_sekarang" value="<?=date('H:i:s')?>" name="jam_sekarang" hidden> 
-                <button type="submit" class="btn btn-success mt-3">Presensi</button>
+                <button type="submit" id="submit" class="btn btn-success mt-3">Presensi</button>
                 </form>
             </center>
         </div>
@@ -42,7 +42,7 @@
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
     // the link to your model provided by Teachable Machine export panel
-    const URL = "https://teachablemachine.withgoogle.com/models/79CjIWAOL/";
+    const URL = "https://teachablemachine.withgoogle.com/models/MsTxvHxt7/";
 
     let model, webcam, labelContainer, maxPredictions;
 
@@ -91,13 +91,19 @@
             labelContainer.childNodes[i].innerHTML = classPrediction;
             const getNama = prediction[i].className;
             document.getElementById('absen').value = getNama;
+            //  var submit = document.getElementById('submit');
+            // submit.click();
             console.log(getNama);
+            
+            
         } else {
             labelContainer.childNodes[i].innerHTML = ""; // set to empty string if probability < 0.7
         }
     
         }
+
     }
+    
 
     init(); // call init() to start the webcam
 </script>
