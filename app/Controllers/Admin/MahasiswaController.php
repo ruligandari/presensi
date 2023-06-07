@@ -114,17 +114,11 @@ class MahasiswaController extends BaseController
         $file = $this->request->getFile('fotowajah');
         if ($file)
         {
-            $namaFile = $nim.'.jpg';
-            $tujuan = ROOTPATH. 'public/uploads/' . $namaFile;
-
-            // Periksa apakah file dengan nama yang sama sudah ada
-            if (file_exists($tujuan)) {
-            // Hapus file yang sudah ada
-            unlink($tujuan);
+            $namaFile = $file->getRandomName();
 
             // Pindahkan file baru ke direktori tujuan
              $file->move(ROOTPATH. 'public/uploads', $namaFile);
-    }
+    
         }
         $mahasiswaModel = new MahasiswaModel();
         $mahasiswaModel->update($nim, ['foto' => $namaFile, 'data_wajah' => $datawajah]);

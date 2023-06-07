@@ -55,12 +55,12 @@
   fetch('<?=base_url('model')?>')
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       // Load the face recognition model
+      var models = '<?=base_url('models')?>'
       Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri('http://localhost:8080/models'),
-        faceapi.nets.faceLandmark68Net.loadFromUri('http://localhost:8080/models'),
-        faceapi.nets.faceRecognitionNet.loadFromUri('http://localhost:8080/models')
+        faceapi.nets.tinyFaceDetector.loadFromUri(models),
+        faceapi.nets.faceLandmark68Net.loadFromUri(models),
+        faceapi.nets.faceRecognitionNet.loadFromUri(models)
       ]).then(startFaceRecognition);
 
       function startFaceRecognition() {

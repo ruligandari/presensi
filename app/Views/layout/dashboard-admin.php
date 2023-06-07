@@ -21,10 +21,9 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="<?= base_url('css/vertical-layout-light/style.css')?>">
-   <!-- endinject -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+  <!-- endinject -->
   <link rel="shortcut icon" href="<?= base_url('images/favicon.png')?>" />
-  <?$this->renderSection('header');?>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
 </head>
 <body>
   <div class="container-scroller">
@@ -286,6 +285,11 @@
   <!-- plugins:js -->
   <script src="<?=base_url()?>vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="<?=base_url()?>vendors/chart.js/Chart.min.js"></script>
+  <script src="<?=base_url()?>vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="<?=base_url()?>vendors/progressbar.js/progressbar.min.js"></script>
+  
   <!-- End plugin js for this page -->
   <!-- inject:js -->
   <script src="<?=base_url()?>js/dashboard.js"></script>

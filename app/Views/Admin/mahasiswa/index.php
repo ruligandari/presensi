@@ -61,11 +61,11 @@
                                     <?php endif; ?>
                                   <td>
                                     <a href="<?= base_url('admin/mahasiswa/form_edit/'). $row['nim']?>"
-                                      class="btn-sm btn-primary text-white" type="button"> <i class="fas fa-edit"></i></a>
+                                      class="btn-sm btn-primary text-white"> <i class="fas fa-edit"></i></a>
                                       <button data-bs-target="#hapusModal<?=$row['nim']?>" data-bs-toggle="modal"
                                       class="btn-sm btn-danger text-white"><i class="fas fa-trash"></i></button>
                                       <a href="<?= base_url('admin/mahasiswa/pas-foto/'). $row['nim']?>"
-                                        class="btn-sm btn-success text-white" type="button"><i class="fas fa-camera"></i></a>
+                                        class="btn-sm btn-success"><i class="fas fa-camera"></i></a>
                                   </td>
                                 </tr>
                                 <?php endforeach?>

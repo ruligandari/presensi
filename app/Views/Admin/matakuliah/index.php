@@ -18,7 +18,7 @@
                             <h4 class="card-title card-title-dash">Kelola Data Mahasiswa</h4>
                           </div>
                           <div>
-                            <a href="<?=base_url('admin/matakuliah/create')?>" type="button" class="btn btn-success">Tambah Data</a>
+                            <a href="<?=base_url('admin/matakuliah/create')?>" type="button" class="btn btn-success text-white">Tambah Data</a>
                           </div>
                         </div>
                         <div class="table-responsive">
