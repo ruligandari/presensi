@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\KelasModel;
 use App\Models\MahasiswaModel;
+use Kint\Parser\ToStringPlugin;
 
 class MahasiswaController extends BaseController
 {
@@ -100,9 +101,35 @@ class MahasiswaController extends BaseController
 
     public function pasfoto($id){
         $data = [
-            'title' => 'Generate Data Wajah'
+            'title' => 'Generate Data Wajah',
+            'nim' => $id
         ];
         return view('Admin/mahasiswa/update-foto', $data);
+    }
+
+    public function upload()
+    {
+        $datawajah = $this->request->getVar('datawajah');
+        $nim = $this->request->getVar('nim');
+        $file = $this->request->getFile('fotowajah');
+        if ($file)
+        {
+            $namaFile = $nim.'.jpg';
+            $tujuan = ROOTPATH. 'public/uploads/' . $namaFile;
+
+            // Periksa apakah file dengan nama yang sama sudah ada
+            if (file_exists($tujuan)) {
+            // Hapus file yang sudah ada
+            unlink($tujuan);
+
+            // Pindahkan file baru ke direktori tujuan
+             $file->move(ROOTPATH. 'public/uploads', $namaFile);
+    }
+        }
+        $mahasiswaModel = new MahasiswaModel();
+        $mahasiswaModel->update($nim, ['foto' => $namaFile, 'data_wajah' => $datawajah]);
+        session()->setFlashdata('success', 'Foto berhasil diupload');
+        return redirect()->to(base_url('admin/data-mahasiswa'));
     }
 }
 ;

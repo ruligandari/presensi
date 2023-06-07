@@ -24,6 +24,7 @@
    <!-- endinject -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
   <link rel="shortcut icon" href="<?= base_url('images/favicon.png')?>" />
+  <?$this->renderSection('header');?>
 </head>
 <body>
   <div class="container-scroller">
