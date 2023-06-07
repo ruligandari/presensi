@@ -51,6 +51,7 @@ $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->get('mahasiswa/form_edit/(:any)', 'Admin\MahasiswaController::form_edit/$1');
     $routes->post('mahasiswa/update/(:any)','Admin\MahasiswaController::update/$1');
     $routes->post('mahasiswa/delete/(:any)', 'Admin\MahasiswaController::delete/$1');
+    $routes->get('mahasiswa/pas-foto/(:any)', 'Admin\MahasiswaController::pasfoto/$1');
 
     // Dosen
     $routes->get('data-dosen', 'Admin\DosenController::index');

@@ -18,8 +18,6 @@
                             <h4 class="card-title card-title-dash">Edit Data Mahasiswa</h4>
                           </div>
                         </div>
-                        <div class="d-flex justify-content-center">
-                        </div>
                         <form action="<?=base_url('admin/mahasiswa/update/'.$mahasiswa['nim']);?>" method="post">
                         <?=csrf_field()?>
 
@@ -90,6 +88,18 @@
                         </div>
                         <div class="row">
                           <div class="form-group">
+                            <label for="foto">Pas Foto</label>
+                            <input name="foto" type="file" class="form-control" id="foto"></input>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group">
+                            
+                            <img src="" id="showFoto" alt="" style="height: 200px; width: 200px; display: none;">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button> &nbsp;
                           </div>
                         </div>
@@ -108,4 +118,36 @@
   </div>
 </div>
 
+<?= $this->endSection()?>
+
+<?= $this->section('script')?>
+<script>
+   // Ambil elemen input file dan elemen gambar
+    var uploadInput = document.getElementById('foto');
+    var previewImage = document.getElementById('showFoto');
+    
+    // Tambahkan event listener untuk perubahan pada input file
+    uploadInput.addEventListener('change', function(e) {
+      // Cek apakah ada file yang diunggah
+      if (uploadInput.files && uploadInput.files[0]) {
+        // Ambil file yang diunggah
+        var file = e.target.files[0];
+        
+        // Buat objek FileReader
+        var reader = new FileReader();
+        
+        // Setelah file selesai dibaca, tampilkan gambar pada elemen img
+        reader.onload = function(e) {
+          previewImage.src = e.target.result;
+          previewImage.style.display = 'block';
+        };
+        
+        // Baca file sebagai URL data gambar
+        reader.readAsDataURL(file);
+      } else {
+        // Jika tidak ada file yang dipilih, sembunyikan elemen img
+        previewImage.style.display = 'none';
+      }
+    });
+</script>
 <?= $this->endSection()?>

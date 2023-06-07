@@ -97,5 +97,12 @@ class MahasiswaController extends BaseController
         session()->setFlashdata('success', 'Data berhasil dihapus');
         return redirect()->to(base_url('admin/data-mahasiswa'));
     }
+
+    public function pasfoto($id){
+        $data = [
+            'title' => 'Generate Data Wajah'
+        ];
+        return view('Admin/mahasiswa/update-foto', $data);
+    }
 }
 ;
