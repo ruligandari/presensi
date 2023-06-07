@@ -39,6 +39,7 @@
                                 <th>Kelas</th>
                                 <th>Jurusan</th>
                                 <th>Jenis Kelamin</th>
+                                <th>Foto</th>
                                 <th>Aksi</th>
                               </tr>
                             </thead>
@@ -52,6 +53,12 @@
                                   <td><?=$row['kelas']?></td>
                                   <td><?=$row['jurusan']?></td>
                                   <td><?=$row['jenis_kelamin']?></td>
+                                  <td> 
+                                    <?php if ($row['foto']): ?>
+                                    <img src="<?= base_url('uploads/' . $row['foto']) ?> ">
+                                    <?php else: ?>
+                                        Belum Ada Foto
+                                    <?php endif; ?>
                                   <td>
                                     <a href="<?= base_url('admin/mahasiswa/form_edit/'). $row['nim']?>"
                                       class="btn-sm btn-primary text-white" type="button"> <i class="fas fa-edit"></i></a>
