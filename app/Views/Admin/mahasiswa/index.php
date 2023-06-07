@@ -13,7 +13,6 @@
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card card-rounded">
                       <div class="card-body">
-                        <div class="d-sm-flex justify-content-between align-items-start">
                           <?php 
                                 if (session()->getFlashdata('success')) {
                                     echo '<div class="alert alert-success" role="alert">'.session()->getFlashdata('success').'</div>';
@@ -21,16 +20,17 @@
                                     echo '<div class="alert alert-danger" role="alert">'.session()->getFlashdata('error').'</div>';
                                 }
                                 ?>
+                        <div class="d-sm-flex justify-content-between align-items-start">
                           <div>
                             <h4 class="card-title card-title-dash">Kelola Data Mahasiswa</h4>
                           </div>
                           <div>
                             <a href="<?=base_url('admin/mahasiswa/create')?>" type="button"
-                              class="btn btn-success">Tambah Data</a>
+                              class="btn btn-success text-white">Tambah Data</a>
                           </div>
                         </div>
                         <div class="table-responsive">
-                          <table class="table table-hover">
+                          <table  id="mhs" class="table table-hover" width="100%">
                             <thead>
                               <tr>
                                 <th>No</th>
@@ -39,32 +39,28 @@
                                 <th>Kelas</th>
                                 <th>Jurusan</th>
                                 <th>Jenis Kelamin</th>
-                                <th>TTL</th>
-                                <th>Agama</th>
-                                <th>Alamat</th>
                                 <th>Aksi</th>
                               </tr>
                             </thead>
-                            <?php $no = 1?>
-                            <?php foreach ($mahasiswa as $row): ?>
                             <tbody>
-                              <td><?=$no++?></td>
-                              <td><?=$row['nim']?></td>
-                              <td><?=$row['nama']?></td>
-                              <td><?=$row['id_kelas']?></td>
-                              <td><?=$row['jurusan']?></td>
-                              <td><?=$row['jenis_kelamin']?></td>
-                              <td><?=$row['ttl']?></td>
-                              <td><?=$row['agama']?></td>
-                              <td><?=$row['alamat']?></td>
-                              <td>
-                                <a href="<?= base_url('admin/mahasiswa/form_edit/'). $row['nim']?>"
-                                  class="btn btn-primary">Edit</a>
-                                <button data-bs-target="#hapusModal<?=$row['nim']?>" data-bs-toggle="modal"
-                                  class="btn btn-danger">Hapus</button>
-                              </td>
+                              <?php $no = 1?>
+                              <?php foreach ($mahasiswa as $row): ?>
+                                <tr>
+                                  <td><?=$no++?></td>
+                                  <td><?=$row['nim']?></td>
+                                  <td><?=$row['nama']?></td>
+                                  <td><?=$row['kelas']?></td>
+                                  <td><?=$row['jurusan']?></td>
+                                  <td><?=$row['jenis_kelamin']?></td>
+                                  <td>
+                                    <a href="<?= base_url('admin/mahasiswa/form_edit/'). $row['nim']?>"
+                                      class="btn-sm btn-primary text-white" type="button"> <i class="fas fa-edit"></i></a>
+                                    <button data-bs-target="#hapusModal<?=$row['nim']?>" data-bs-toggle="modal"
+                                      class="btn-sm btn-danger text-white"><i class="fas fa-trash"></i></button>
+                                  </td>
+                                </tr>
+                                <?php endforeach?>
                             </tbody>
-                            <?php endforeach?>
                           </table>
                         </div>
                       </div>
@@ -106,6 +102,14 @@
 <?= $this->endSection()?>
 
 <?= $this->section('script')?>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#mhs').DataTable();
+});
+</script>
 <script>
   // Menangani klik tombol hapus pada modal
   document.getElementById('hapusDataBtn').addEventListener('click', function() {

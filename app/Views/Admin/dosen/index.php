@@ -25,18 +25,17 @@
                             <h4 class="card-title card-title-dash">Kelola Data Dosen</h4>
                           </div>
                           <div>
-                            <a href="<?=base_url('admin/dosen/create')?>" type="button" class="btn btn-success">Tambah Data</a>
+                            <a href="<?=base_url('admin/dosen/create')?>" type="button" class="btn btn-success text-white">Tambah Data</a>
                           </div>
                         </div>
-                        <div class="table-responsive">
-                          <table class="table table-hover">
+                        <div class="table-responsive"> 
+                          <table class="table table-hover" id="mhs">
                             <thead>
                               <tr>
                                 <th>No</th>
                                 <th>NIP</th>
                                 <th>Nama</th>
                                 <th>Email</th>
-                                <th>Password</th>
                                 <th>Aksi</th>
                               </tr>
                             </thead>
@@ -47,12 +46,11 @@
                               <td><?=$d['nip']?></td>
                               <td><?=$d['nama']?></td>
                               <td><?=$d['email']?></td>
-                              <td><?=$d['password']?></td>
                               <td>
                                 <a href="<?= base_url('admin/dosen/form_edit/'). $d['id_dosen']?>"
-                                  class="btn btn-primary">Edit</a>
+                                  class="btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                 <button data-target="#hapusModal<?=$d['id_dosen']?>" data-toggle="modal"
-                                  class="btn btn-danger">Hapus</button>
+                                  class="btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                               </td>
                             </tbody>
                             <?php endforeach?>
@@ -70,5 +68,17 @@
     </div>
   </div>
 </div>
+
+<?= $this->endSection()?>
+
+<?= $this->section('script')?>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#mhs').DataTable();
+});
+</script>
 
 <?= $this->endSection()?>

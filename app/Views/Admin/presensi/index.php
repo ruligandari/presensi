@@ -21,12 +21,11 @@
                                     <a href="<?=base_url('admin/waktupresensi/create')?>"  type="button" class="btn btn-success">Tambah Data</a>
                                   </div>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
+                                <div >
+                                    <table id="mhsData">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>ID</th>
                                                 <th>Kelas</th>
                                                 <th>Mata Kuliah</th>
                                                 <th>Jam Masuk</th>
@@ -40,8 +39,7 @@
                                         <?php foreach ($presensi as $presensi): ?>
                                         <tbody>
                                             <td><?=$no++?></td>
-                                            <td><?=$presensi['id']?></td>
-                                            <td><?=$presensi['id_kelas']?></td>
+                                            <td><?=$presensi['kelas']?></td>
                                             <td><?=$presensi['id_mk']?></td>
                                             <td><?=$presensi['jam_masuk']?></td>
                                             <td><?=$presensi['jam_keluar']?></td>
@@ -68,4 +66,15 @@
           </div>
         </div>
      
+<?= $this->endSection()?>
+<?= $this->section('script')?>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#mhsData').DataTable();
+});
+</script>
+
 <?= $this->endSection()?>

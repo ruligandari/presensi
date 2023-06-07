@@ -22,7 +22,7 @@
                           </div>
                         </div>
                         <div class="table-responsive">
-                          <table class="table table-hover">
+                          <table class="table table-hover" id="mhs">
                             <thead>
                               <tr>
                                 <th>No</th>
@@ -39,11 +39,11 @@
                               <td><?=$row['id_mk']?></td>
                               <td><?=$row['nama_mk']?></td>
                               <td><?=$row['nama']?></td>
-                              <td>
+                              <td align="center">
                                 <a href="<?= base_url('admin/matakuliah/form-edit/'). $row['id_mk']?>"
-                                  class="btn btn-primary">Edit</a>
+                                  class="btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                 <button data-bs-target="#hapusModal<?=$row['id_mk']?>" data-bs-toggle="modal"
-                                  class="btn btn-danger">Hapus</button>
+                                  class="btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                               </td>
                             </tbody>
                             <?php endforeach?>
@@ -85,4 +85,15 @@
           </div>
         </div>
 <?php endforeach?>
+<?= $this->endSection()?>
+<?= $this->section('script')?>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#mhs').DataTable();
+});
+</script>
+
 <?= $this->endSection()?>

@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?= $title?> </title>
   <!-- plugins:css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <link rel="stylesheet" href="<?= base_url()?>vendors/feather/feather.css">
   <link rel="stylesheet" href="<?= base_url()?>vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="<?= base_url()?>vendors/ti-icons/css/themify-icons.css">
@@ -16,13 +18,12 @@
   <link rel="stylesheet" href="<?= base_url()?>vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="<?= base_url()?>vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <link rel="stylesheet" href="<?= base_url()?>js/select.dataTables.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="<?= base_url()?>css/vertical-layout-light/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="<?= base_url()?>images/favicon.png" />
+  <link rel="stylesheet" href="<?= base_url('css/vertical-layout-light/style.css')?>">
+   <!-- endinject -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+  <link rel="shortcut icon" href="<?= base_url('images/favicon.png')?>" />
 </head>
 <body>
   <div class="container-scroller">
@@ -242,7 +243,7 @@
           <li class="nav-item nav-category">Data Presensi</li>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('admin/data-waktupresensi')?>">
-              <i class="mdi mdi-account-box-outline menu-icon"></i>
+              <i class="mdi mdi-account-card-details menu-icon"></i>
               <span class="menu-title">Data Presensi</span>
             </a>
           </li>
@@ -266,7 +267,7 @@
       <div class="main-panel">
 
         <?= $this->renderSection('content')?>
-
+        
         <!-- Footer -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -280,28 +281,15 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
+  
   <!-- plugins:js -->
   <script src="<?=base_url()?>vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
-  <!-- Plugin js for this page -->
-  <script src="<?=base_url()?>vendors/chart.js/Chart.min.js"></script>
-  <script src="<?=base_url()?>vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-  <script src="<?=base_url()?>vendors/progressbar.js/progressbar.min.js"></script>
-
   <!-- End plugin js for this page -->
   <!-- inject:js -->
-  <script src="<?=base_url()?>js/off-canvas.js"></script>
-  <script src="<?=base_url()?>js/hoverable-collapse.js"></script>
-  <script src="<?=base_url()?>js/template.js"></script>
-  <script src="<?=base_url()?>js/settings.js"></script>
-  <script src="<?=base_url()?>js/todolist.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="<?=base_url()?>js/jquery.cookie.js" type="text/javascript"></script>
   <script src="<?=base_url()?>js/dashboard.js"></script>
-  <script src="<?=base_url()?>js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
+  <?= $this->renderSection('script')?>
 </body>
 
 </html>
