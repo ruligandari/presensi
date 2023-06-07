@@ -4,12 +4,13 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PresensiDataModel;
+use App\Models\MahasiswaModel;
 
 class AbsensiController extends BaseController
 {
     public function index()
     {
-        //
+        
     }
 
     public function create()

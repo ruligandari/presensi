@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="<?= base_url()?>css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="<?= base_url()?>images/favicon.png" />
+  <?= $this->renderSection('header')?>
 </head>
 
 <body>

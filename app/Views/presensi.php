@@ -1,5 +1,17 @@
 <?= $this->extend('layout/auth-login-admin')?>
 
+<?= $this->section('header');?>
+<style>
+    video{
+        position: absolute;
+    }
+
+    canvas {
+        position: relative;
+    }
+</style>
+<?= $this->endSection();?>
+
 <?= $this->section('content')?>
 
 <div class="content-wrapper d-flex align-items-center auth px-0">
@@ -18,7 +30,9 @@
             ?>
             <h2 class="text-center mb-3">Sistem Presensi Face Recognition</h2>
             <!-- <video autoplay="true" id="webcam-video"></video> -->
-            <div id="video" class="text-center"></div>
+            
+                <div id="video" class="video"></div>
+            
             <div class="label text-center" id="label"></div>
             <center>
                 <form action="<?= base_url('absen/')?>" method="POST">
@@ -35,76 +49,83 @@
 <?= $this->endSection()?>
 
 <?= $this->section('script')?>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script src="<?= base_url('js/face-api.min.js')?>"></script>
 <script>
-    // More API functions here:
-    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+  // Fetch model from server
+  fetch('<?=base_url('model')?>')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      // Load the face recognition model
+      Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri('http://localhost:8080/models'),
+        faceapi.nets.faceLandmark68Net.loadFromUri('http://localhost:8080/models'),
+        faceapi.nets.faceRecognitionNet.loadFromUri('http://localhost:8080/models')
+      ]).then(startFaceRecognition);
 
-    // the link to your model provided by Teachable Machine export panel
-    const URL = "https://teachablemachine.withgoogle.com/models/MsTxvHxt7/";
+      function startFaceRecognition() {
+        // Start webcam stream
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            const video = document.createElement('video');
+            video.id = 'video';
+            video.width = 640;
+            video.height = 480;
+            video.autoplay = true;
+            video.srcObject = stream;
+            document.getElementById('video').appendChild(video);
 
-    let model, webcam, labelContainer, maxPredictions;
+            video.onloadedmetadata = () => {
+              video.play();
+              // Create canvas for drawing face landmarks
+              const canvas = document.createElement('canvas');
+              canvas.id = 'canvas';
+              canvas.width = 640;
+              canvas.height = 480;
+              document.getElementById('video').appendChild(canvas);
+              const displaySize = { width: video.width, height: video.height };
+              faceapi.matchDimensions(canvas, displaySize);
 
-    // Load the image model and setup the webcam
-    async function init() {
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
+              // Perform face recognition on each video frame
+              setInterval(async () => {
+                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+                  .withFaceLandmarks()
+                  .withFaceDescriptors();
+                 const labeledDescriptors = data.labels.map((label, index) => {
+                    const descriptors = Float32Array.from(data.descriptors[index]);
+                    return new faceapi.LabeledFaceDescriptors(label, [descriptors]);
+                    });
+                
+                const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors);
+                const results = detections.map(detection => faceMatcher.findBestMatch(detection.descriptor));
+                console.log(results);
+                // Draw bounding boxes and labels on canvas
+                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+                results.forEach((result, i) => {
+                  const box = detections[i].detection.box;
+                  const label = result.toString();
+                  const drawBox = new faceapi.draw.DrawBox(box, { label });
+                  drawBox.draw(canvas);
 
-        // load the model and metadata
-        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-        // or files from your local hard drive
-        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
+                  // Update label text
+                  const labelElement = document.getElementById('label');
+                  labelElement.innerHTML = label;
+                  console.log(label);
 
-        // Convenience function to setup a webcam
-        const flip = true; // whether to flip the webcam
-        webcam = new tmImage.Webcam(400, 400, flip); // width, height, flip
-        await webcam.setup(); // request access to the webcam
-        await webcam.play();
-        window.requestAnimationFrame(loop);
-
-        // append elements to the DOM
-        document.getElementById("video").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label");
-        for (let i = 0; i < maxPredictions; i++) { // and class labels
-            labelContainer.appendChild(document.createElement("div"));
-        }
-    }
-
-    async function loop() {
-        webcam.update(); // update the webcam frame
-        await predict();
-        window.requestAnimationFrame(loop);
-    }
-
-    // run the webcam image through the image model
-    async function predict() {
-        // predict can take in an image, video or canvas html element
-        const prediction = await model.predict(webcam.canvas);
-        console.log(prediction)
-        for (let i = 0; i < maxPredictions; i++) {
-                if (prediction[i].probability > 0.7) { // check if probability > 0.7
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-            const getNama = prediction[i].className;
-            document.getElementById('absen').value = getNama;
-            //  var submit = document.getElementById('submit');
-            // submit.click();
-            console.log(getNama);
-            
-            
-        } else {
-            labelContainer.childNodes[i].innerHTML = ""; // set to empty string if probability < 0.7
-        }
-    
-        }
-
-    }
-    
-
-    init(); // call init() to start the webcam
+                  // Update hidden input value
+                  const absenInput = document.getElementById('absen');
+                  absenInput.value = label;
+                });
+              }, 100);
+            };
+          })
+          .catch(error => {
+            console.log('Error accessing webcam:', error);
+          });
+      }
+    })
+    .catch(error => {
+      console.log('Error fetching model:', error);
+    });
 </script>
 <?= $this->endSection()?>

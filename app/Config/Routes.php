@@ -96,6 +96,8 @@ $routes->group('dosen', ['filter' => 'dosen/auth'], function($routes){
     $routes->get('data-presensi', 'Dosen\PresensiController::index');
 });
 
+$routes->get('model', 'Home::getModel');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
