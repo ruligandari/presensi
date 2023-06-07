@@ -98,7 +98,6 @@
                 
                 const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors);
                 const results = detections.map(detection => faceMatcher.findBestMatch(detection.descriptor));
-                console.log(results);
                 // Draw bounding boxes and labels on canvas
                 canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
                 results.forEach((result, i) => {
