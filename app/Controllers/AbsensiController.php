@@ -19,10 +19,13 @@ class AbsensiController extends BaseController
         $id_waktu_presensi = '';
         date_default_timezone_set('Asia/Jakarta');
         $namaMhs = $this->request->getVar('absen');
+        $parts = explode(" ", $namaMhs);
+        $nim = $parts[0];
+
         $time = strtotime(date('H:i:s'));
         $date = date('Y-m-d');
         $presensiData = new PresensiDataModel();
-        $dataMahasiswa = $presensiData->byNama($namaMhs);
+        $dataMahasiswa = $presensiData->byNama($nim);
 
         foreach ($dataMahasiswa as $mahasiswa) {
             $jam_masuk = strtotime($mahasiswa['jam_masuk']);

@@ -100,13 +100,13 @@ class PresensiDataModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
-    public function byNama($nama){
+    public function byNama($nim){
         $builder = $this->db->table('presensi');
         $builder->join('mata_kuliah','presensi.id_mk = mata_kuliah.id_mk');
         $builder->join('mahasiswa','presensi.nim = mahasiswa.nim');
         $builder->join('kelas','presensi.id_kelas = kelas.id_kelas');
         $builder->join('daftar_presensi','presensi.id = daftar_presensi.id');
-        $builder->where('mahasiswa.nama', $nama);
+        $builder->where('mahasiswa.nim', $nim);
         $query = $builder->get();
         return $query->getResultArray();
     }
