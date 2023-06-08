@@ -91,7 +91,7 @@
       <form action="<?= base_url('admin/waktupresensi/delete/').$row['id']?>" method="POST">
       <?= csrf_field()?>
       <div class="modal-body">
-        Apakah anda yakin ingin menghapus user <?=$row['id']?> ?
+        Apakah anda yakin ingin menghapus Presensi <?=$row['id']?> ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

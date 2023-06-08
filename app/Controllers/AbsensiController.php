@@ -41,7 +41,7 @@ class AbsensiController extends BaseController
         }
 
         if ($status == 'hadir'){
-            $presensiData->updateStatusByIdWaktuPresensi($id_waktu_presensi);
+            $presensiData->updateStatusByIdWaktuPresensi($id_waktu_presensi, $nim);
             return redirect()->to('/')->with('msg', 'Presensi Mata Kuliah '.$mahasiswa['nama_mk'].' Berhasil');
         } else {
             return redirect()->to('/')->with('err', 'Presensi Gagal Anda Sudah Melakukan Presensi');

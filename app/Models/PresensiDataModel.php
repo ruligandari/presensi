@@ -111,7 +111,7 @@ class PresensiDataModel extends Model
         return $query->getResultArray();
     }
 
-    public function updateStatusByIdWaktuPresensi($id)
+    public function updateStatusByIdWaktuPresensi($id, $nim)
     {
         $builder = $this->db->table('presensi');
         // $builder->join('mata_kuliah','presensi.id_mk = mata_kuliah.id_mk');
@@ -119,6 +119,7 @@ class PresensiDataModel extends Model
         // $builder->join('kelas','presensi.id_kelas = kelas.id_kelas');
         // $builder->join('daftar_presensi','presensi.id = daftar_presensi.id');
         $builder->where('id', $id);
+        $builder->where('nim', $nim);
         $builder->update(['status' => 'hadir']);
     }
 }
