@@ -12,8 +12,6 @@
                 <div class="row ">
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card card-rounded">
-                      <div class="card-body">
-                        <div class="d-sm-flex justify-content-between align-items-start">
                         <?php 
                                 if (session()->getFlashdata('success')) {
                                     echo '<div class="alert alert-success" role="alert">'.session()->getFlashdata('success').'</div>';
@@ -21,6 +19,8 @@
                                     echo '<div class="alert alert-danger" role="alert">'.session()->getFlashdata('error').'</div>';
                                 }
                                 ?>
+                      <div class="card-body">
+                        <div class="d-sm-flex justify-content-between align-items-start">
                           <div>
                             <h4 class="card-title card-title-dash">Kelola Data Dosen</h4>
                           </div>

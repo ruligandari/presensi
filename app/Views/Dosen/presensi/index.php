@@ -19,7 +19,7 @@
                                                     </div>
                                                     <div>
                                                         <input type="text" id="search-input"
-                                                            placeholder="Filter Mata Kuliah" class="form-control">
+                                                            placeholder="Cari..." class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="table-responsive">
