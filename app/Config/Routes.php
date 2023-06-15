@@ -68,6 +68,10 @@ $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->get('matakuliah/form-edit/(:any)', 'Admin\MataKuliahController::form-edit/$1');
     $routes->post('matakuliah/update/(:any)','Admin\MataKuliahController::update/$1');
     $routes->get('matakuliah/delete/(:any)', 'Admin\MataKuliahController::delete/$1');
+    $routes->get('matakuliah/kontrak/(:any)', 'Admin\MataKuliahController::kontrak/$1');
+    $routes->post('matakuliah/kontrak/filter', 'Admin\MataKuliahController::filter');
+    $routes->post('matakuliah/kontrak/save', 'Admin\MataKuliahController::save_kontrak');
+    $routes->post('matakuliah/kontrak/check','Admin\MataKuliahController::check');
     // WaktuPresensi
     $routes->get('data-waktupresensi', 'Admin\WaktuPresensiController::index');
     $routes->get('waktupresensi/create', 'Admin\WaktuPresensiController::create');
