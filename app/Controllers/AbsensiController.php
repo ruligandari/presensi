@@ -13,12 +13,12 @@ class AbsensiController extends BaseController
         
     }
 
-    public function create()
+    public function create($id)
     {
         $status = '';
         $id_waktu_presensi = '';
         date_default_timezone_set('Asia/Jakarta');
-        $namaMhs = $this->request->getVar('absen');
+        $namaMhs = $id;
         $parts = explode(" ", $namaMhs);
         $nim = $parts[0];
 
@@ -32,19 +32,19 @@ class AbsensiController extends BaseController
             $jam_keluar = strtotime($mahasiswa['jam_keluar']);
             if ($time >= $jam_masuk && $time <= $jam_keluar && $mahasiswa['status'] == 'tidak hadir') {
             $status = 'hadir';
+            $namaMk = $mahasiswa['nama_mk'];
             $id_waktu_presensi = $mahasiswa['id'];
-            //return redirect()->to('/')->with('msg', 'Presensi Mata Kuliah '.$mahasiswa['nama_mk'].'Berhasil');
-            } else {
+            } else if ($time >= $jam_keluar) {
             $status = 'tidak hadir';
-            //return redirect()->to('/')->with('err', 'Presensi Gagal Anda Sudah Melakukan Presensi');
+            $namaMk = $mahasiswa['nama_mk'];
             }
         }
 
         if ($status == 'hadir'){
             $presensiData->updateStatusByIdWaktuPresensi($id_waktu_presensi, $nim);
-            return redirect()->to('/')->with('msg', 'Presensi Mata Kuliah '.$mahasiswa['nama_mk'].' Berhasil');
-        } else {
-            return redirect()->to('/')->with('err', 'Presensi Gagal Anda Sudah Melakukan Presensi');
+            return json_encode(array('status' => 'success', 'msg' => 'Presensi '.$namaMk. ' Berhasil'));
+        } else if ($status == 'tidak hadir'){
+            return json_encode(array('status' => 'error', 'msg' => 'Anda Sudah Melakukan Presensi '.$namaMk. ' Pada Tanggal '. $date. ' Jam '. date('H:i:s')));
         }
     }
 }

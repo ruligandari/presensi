@@ -17,39 +17,22 @@
 <div class="content-wrapper d-flex align-items-center auth px-0">
     <div class="row w-100 mx-0">
         <div class="col-lg-5 mx-auto">
-            <?php
-            if (session()->getFlashdata('msg')) {
-              echo '<div class="alert alert-success" role="alert">';
-              echo session()->getFlashdata('msg');
-              echo '</div>';
-            } else if (session()->getFlashdata('err')){
-                echo '<div class="alert alert-danger" role="alert">';
-              echo session()->getFlashdata('err');
-              echo '</div>';
-            }
-            ?>
             <h2 class="text-center mb-3">Sistem Presensi Face Recognition</h2>
             <!-- <video autoplay="true" id="webcam-video"></video> -->
             
                 <div id="video" class="video"></div>
             
+            <div class="label text-center"><span>Tahan Posisi Dalam Beberapa Detik</span></div>
             <div class="label text-center" id="label"></div>
-            <center>
-                <form action="<?= base_url('absen/')?>" method="POST">
-                <input type="text" id="absen" name="absen" hidden>
-                <input type="time" id="jam_sekarang" value="<?=date('H:i:s')?>" name="jam_sekarang" hidden> 
-                <button type="submit" id="submit" class="btn btn-success mt-3" hidden>Presensi</button>
-                </form>
-            </center>
         </div>
     </div>
 </div>
-
 
 <?= $this->endSection()?>
 
 <?= $this->section('script')?>
 <script src="<?= base_url('js/face-api.min.js')?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   // Fetch model from server
   fetch('<?=base_url('model')?>')
@@ -109,23 +92,43 @@
                   // Update label text
                   const labelElement = document.getElementById('label');
                   labelElement.innerHTML = label;
-
-                  // Update hidden input value
-                  const absenInput = document.getElementById('absen');
-                  if (label != 'unkown') {
-                    var submitButton = document.getElementById('submit');
-                    setTimeout(function() {
-                      absenInput.value = label;
-                      submitButton.click();
-                    }, 3000);
+                  labeled = label.substring(0, label.indexOf(' '));
+                  if (labeled != 'unknown') {
+                      presensi(label)
+                  }else {
+                    Swal.fire({
+                      text: 'Wajah Tidak Terdaftar!',
+                      icon: 'error',
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
                   }
                 });
-              }, 1000);
+
+              }, 5000);
             };
           })
           .catch(error => {
             console.log('Error accessing webcam:', error);
           });
+      }
+
+      function presensi(id){
+        $.ajax({
+          url: "<?=base_url('absen/')?>"+id,
+          type: "GET",
+          success: function(response) {
+            console.log(response);
+            var jsonParse = JSON.parse(response);
+            Swal.fire({
+              text: jsonParse.msg,
+              icon: jsonParse.status,
+              showConfirmButton: false,
+              timer: 3000
+            })
+          }
+
+        })
       }
     })
     .catch(error => {
