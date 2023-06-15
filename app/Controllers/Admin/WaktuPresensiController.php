@@ -9,6 +9,7 @@ use App\Models\MahasiswaModel;
 use App\Models\MataKuliahModel;
 use App\Models\PresensiModel;
 use App\Models\PresensiDataModel;
+use App\Models\KontrakModel;
 
 class WaktuPresensiController extends BaseController
 {
@@ -70,7 +71,11 @@ class WaktuPresensiController extends BaseController
         //Create Presensi
         $mahasiswaModel = new MahasiswaModel();
         $dataMahasiswa = $mahasiswaModel->byKelas($id_kelas);
+        $kontrakModel = new KontrakModel();
         foreach($dataMahasiswa as $mahasiswa){
+            $nim = $mahasiswa['nim'];
+            $kontrakExist = $kontrakModel->checkKontrakExists($nim, $id_mk);
+            if($kontrakExist){
             $data = [
                 'nim' => $mahasiswa['nim'],
                 'id_kelas' => $id_kelas,
@@ -80,7 +85,7 @@ class WaktuPresensiController extends BaseController
             ];
             $presensiDataModel->insert($data);
         }
-
+    }
         session()->setFlashdata('success', 'Data berhasil ditambahkan');
         return redirect()->to(base_url('admin/data-waktupresensi'));
     }
