@@ -38,7 +38,7 @@
                 <form action="<?= base_url('absen/')?>" method="POST">
                 <input type="text" id="absen" name="absen" hidden>
                 <input type="time" id="jam_sekarang" value="<?=date('H:i:s')?>" name="jam_sekarang" hidden> 
-                <button type="submit" id="submit" class="btn btn-success mt-3">Presensi</button>
+                <button type="submit" id="submit" class="btn btn-success mt-3" hidden>Presensi</button>
                 </form>
             </center>
         </div>
@@ -109,13 +109,18 @@
                   // Update label text
                   const labelElement = document.getElementById('label');
                   labelElement.innerHTML = label;
-                  console.log(label);
 
                   // Update hidden input value
                   const absenInput = document.getElementById('absen');
                   absenInput.value = label;
+                  if (absenInput != 'unkown') {
+                    var submitButton = document.getElementById('submit');
+                    setTimeout(function() {
+                      submitButton.click();
+                    }, 3000);
+                  }
                 });
-              }, 100);
+              }, 1000);
             };
           })
           .catch(error => {
