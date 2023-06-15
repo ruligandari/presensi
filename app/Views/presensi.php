@@ -112,10 +112,10 @@
 
                   // Update hidden input value
                   const absenInput = document.getElementById('absen');
-                  absenInput.value = label;
-                  if (absenInput != 'unkown') {
+                  if (label != 'unkown') {
                     var submitButton = document.getElementById('submit');
                     setTimeout(function() {
+                      absenInput.value = label;
                       submitButton.click();
                     }, 3000);
                   }
