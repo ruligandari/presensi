@@ -13,12 +13,14 @@ class AbsensiController extends BaseController
         
     }
 
-    public function create()
+    public function create($id)
     {
         $status = '';
         $id_waktu_presensi = '';
+        $namaMk = '';
+
         date_default_timezone_set('Asia/Jakarta');
-        $namaMhs = $this->request->getVar('absen');
+        $namaMhs = $id;
         $parts = explode(" ", $namaMhs);
         $nim = $parts[0];
 
@@ -30,21 +32,29 @@ class AbsensiController extends BaseController
         foreach ($dataMahasiswa as $mahasiswa) {
             $jam_masuk = strtotime($mahasiswa['jam_masuk']);
             $jam_keluar = strtotime($mahasiswa['jam_keluar']);
-            if ($time >= $jam_masuk && $time <= $jam_keluar && $mahasiswa['status'] == 'tidak hadir') {
+            if ($date == $mahasiswa['tanggal'] && $time >= $jam_masuk && $time <= $jam_keluar && $mahasiswa['status'] == 'tidak hadir') {
             $status = 'hadir';
+            $namaMk = $mahasiswa['nama_mk'];
             $id_waktu_presensi = $mahasiswa['id'];
-            //return redirect()->to('/')->with('msg', 'Presensi Mata Kuliah '.$mahasiswa['nama_mk'].'Berhasil');
-            } else {
+
+            } else if ($time >= $jam_keluar) {
             $status = 'tidak hadir';
-            //return redirect()->to('/')->with('err', 'Presensi Gagal Anda Sudah Melakukan Presensi');
+            $namaMk = $mahasiswa['nama_mk'];
             }
         }
 
+        $data = [
+            'status' => 'error',
+            'msg' => 'Belum Ada Presensi ',
+        ];
+
+        
         if ($status == 'hadir'){
+            return json_encode(array('status' => 'success', 'msg' => 'Presensi  Berhasil'));
             $presensiData->updateStatusByIdWaktuPresensi($id_waktu_presensi, $nim);
-            return redirect()->to('/')->with('msg', 'Presensi Mata Kuliah '.$mahasiswa['nama_mk'].' Berhasil');
-        } else {
-            return redirect()->to('/')->with('err', 'Presensi Gagal Anda Sudah Melakukan Presensi');
+        } else if ($status == 'tidak hadir'){
+            return json_encode(array('status' => 'error', 'msg' => 'Anda Sudah Melakukan Presensi '.$namaMk. ' Pada Tanggal '. $date. ' Jam '. date('H:i:s')));
         }
+        return json_encode($data);
     }
 }
