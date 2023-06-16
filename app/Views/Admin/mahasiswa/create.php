@@ -12,28 +12,26 @@
                 <div class="row ">
                   <div class="col-17 grid-margin stretch-card">
                     <div class="card card-rounded">
+                      <div class="d-sm-flex justify-content-center align-items-start">
+                          <h4 class="card-title card-title-dash mt-3">Input Data Mahasiswa</h4>
+                      </div>
                       <div class="card-body">
-                        <div class="d-sm-flex justify-content-center align-items-start">
-                          <div>
-                            <h4 class="card-title card-title-dash">Input Data Mahasiswa</h4>
-                          </div>
-                        </div>
                         <div class="d-flex justify-content-center">
                         </div>
                         <form action="<?=base_url('admin/mahasiswa/save');?>" method="post">
-                        <div class="row">
+                        <div class="row col-4">
                           <div class="form-group">
-                            <label>NIM</label>
+                            <label for="nim">NIM</label>
                             <input type="text" class="form-control" name="nim">
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row col-6">
                           <div class="form-group">
                             <label>Nama</label>
                             <input type="text" class="form-control" name="nama">
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row col-4">
                           <div class="form-group">
                             <label>Kelas</label>
                             <select name="id_kelas" class="form-control">
@@ -44,7 +42,7 @@
                             </select>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row col-4">
                           <div class="form-group">
                             <label>Jurusan</label>
                             <select name="jurusan" class="form-control">
@@ -53,7 +51,7 @@
                             </select>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row col-4">
                           <div class="form-group">
                             <label>Jenis Kelamin</label>
                             <select name="jenis_kelamin" class="form-control">
@@ -63,13 +61,13 @@
                             </select>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row col-6">
                           <div class="form-group">
                             <label>Tempat Tanggal Lahir</label>
                             <input type="text" class="form-control" name="ttl">
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row col-4">
                           <div class="form-group">
                             <label>Agama</label>
                             <select name="agama" class="form-control">
@@ -80,15 +78,15 @@
                             </select>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row col-6">
                           <div class="form-group">
                             <label>Alamat</label>
-                            <textarea name="alamat" class="form-control"></textarea>
+                            <textarea name="alamat" class="form-control" rows="3"></textarea>
                           </div>
                         </div>
                         <div class="row">
                           <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Simpan</button> &nbsp;
+                            <button type="submit" class="btn btn-primary text-white">Simpan</button>
                           </div>
                         </div>
                         </form>

@@ -50,7 +50,7 @@ class AbsensiController extends BaseController
 
         
         if ($status == 'hadir'){
-            return json_encode(array('status' => 'success', 'msg' => 'Presensi  Berhasil'));
+            return json_encode(array('status' => 'success', 'msg' => 'Presensi '.$namaMk.  ' Berhasil'));
             $presensiData->updateStatusByIdWaktuPresensi($id_waktu_presensi, $nim);
         } else if ($status == 'tidak hadir'){
             return json_encode(array('status' => 'error', 'msg' => 'Anda Sudah Melakukan Presensi '.$namaMk. ' Pada Tanggal '. $date. ' Jam '. date('H:i:s')));

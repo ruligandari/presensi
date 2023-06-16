@@ -82,20 +82,8 @@
                         </div>
                         <div class="row">
                           <div class="form-group">
-                            <label>Alamat</label>
-                            <textarea name="alamat" class="form-control"><?=$mahasiswa['alamat'];?></textarea>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="form-group">
-                            <label for="foto">Pas Foto</label>
-                            <input name="foto" type="file" class="form-control" id="foto"></input>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="form-group">
-                            
-                            <img src="" id="showFoto" alt="" style="height: 200px; width: 200px; display: none;">
+                            <label class="form-label">Alamat</label>
+                            <textarea name="alamat" class="form-control" rows="3"><?=$mahasiswa['alamat'];?></textarea>
                           </div>
                         </div>
                         <div class="row">
