@@ -22,6 +22,28 @@ class MataKuliahController extends BaseController
 
         return view('Admin/matakuliah/index', $data);
     }
+    public function form_edit($id){
+        $mkModel = new MataKuliahModel();
+        $id = $mkModel->join('dosen','mata_kuliah.id_dosen = dosen.id_dosen')->find($id);
+        $dosenModel = new DosenModel();
+        $data = [
+            'title' => 'Update Data Mata Kuliah',
+            'mk' => $id,
+            'dosen' => $dosenModel->findAll()
+        ];
+        return view('Admin/matakuliah/update', $data);
+    }
+    public function update($id){
+        $mkModel = new MataKuliahModel();
+        $data = [
+            'id_mk' => $this->request->getVar('id_mk'),
+            'nama_mk' => $this->request->getVar('nama_mk'),
+            'id_dosen' => $this->request->getVar('id_dosen')
+        ];
+        $mkModel->update($id, $data);
+        session()->setFlashdata('success', 'Data berhasil ditambahkan');
+        return redirect()->to(base_url('admin/data-matakuliah'));
+    }
     public function kontrak($id){
         $mkModel = new MataKuliahModel();
         $mahasiswa = new MahasiswaModel();
@@ -68,6 +90,12 @@ class MataKuliahController extends BaseController
             'mahasiswa' => $mahasiswa
         ];
         return $this->response->setJSON($response);
+    }
+    public function delete($id){
+        $mkModel = new MataKuliahModel();
+        $mkModel->delete($id);
+        session()->setFlashdata('success', 'Data berhasil dihapus');
+        return redirect()->to(base_url('admin/data-matakuliah'));
     }
     public function save(){
 

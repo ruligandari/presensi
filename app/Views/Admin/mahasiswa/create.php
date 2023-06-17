@@ -12,10 +12,14 @@
                 <div class="row ">
                   <div class="col-17 grid-margin stretch-card">
                     <div class="card card-rounded">
-                      <div class="d-sm-flex justify-content-center align-items-start">
-                          <h4 class="card-title card-title-dash mt-3">Input Data Mahasiswa</h4>
-                      </div>
                       <div class="card-body">
+                        <div class="d-sm-flex justify-content-between align-items-start mb-3">
+                          
+                            <a class="btn btn-primary text-white" href="<?= base_url('admin/data-mahasiswa')?>"><i class="mdi mdi-arrow-left"></i></a>
+                              <h4 class="card-title card-title-dash mt-2">Input Data Mahasiswa</h4>
+                              <h4 class="card-title card-title-dash"></h4>
+                        </div>
+                        <hr>
                         <div class="d-flex justify-content-center">
                         </div>
                         <form action="<?=base_url('admin/mahasiswa/save');?>" method="post">

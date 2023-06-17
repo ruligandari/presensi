@@ -79,7 +79,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/mahasiswa/delete/').$mks['id_mk']?>" method="POST">
+            <form action="<?= base_url('admin/matakuliah/delete/').$mks['id_mk']?>" method="POST">
                 <?= csrf_field()?>
                 <div class="modal-body">
                     Apakah anda yakin ingin menghapus Mahasiswa <?=$mks['id_mk']?> ?

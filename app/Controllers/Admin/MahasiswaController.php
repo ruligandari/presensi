@@ -22,7 +22,7 @@ class MahasiswaController extends BaseController
         $kelasModel = new KelasModel();
         $kelas = $kelasModel->findAll();
         $data = [
-            'title' => 'create',
+            'title' => 'Tambah Data Mahasiswa',
             'kelas' => $kelas,
         ];
         return view('Admin/mahasiswa/create',$data);

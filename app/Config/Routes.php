@@ -65,9 +65,9 @@ $routes->group('admin', ['filter' => 'auth'], function($routes){
     $routes->get('data-matakuliah','Admin\MataKuliahController::index');
     $routes->get('matakuliah/create', 'Admin\MataKuliahController::create');
     $routes->post('matakuliah/save', 'Admin\MataKuliahController::save');
-    $routes->get('matakuliah/form-edit/(:any)', 'Admin\MataKuliahController::form-edit/$1');
+    $routes->get('matakuliah/form-edit/(:any)', 'Admin\MataKuliahController::form_edit/$1');
     $routes->post('matakuliah/update/(:any)','Admin\MataKuliahController::update/$1');
-    $routes->get('matakuliah/delete/(:any)', 'Admin\MataKuliahController::delete/$1');
+    $routes->post('matakuliah/delete/(:any)', 'Admin\MataKuliahController::delete/$1');
     $routes->get('matakuliah/kontrak/(:any)', 'Admin\MataKuliahController::kontrak/$1');
     $routes->post('matakuliah/kontrak/filter', 'Admin\MataKuliahController::filter');
     $routes->post('matakuliah/kontrak/save', 'Admin\MataKuliahController::save_kontrak');
