@@ -40,6 +40,9 @@ class AbsensiController extends BaseController
             } else if ($time >= $jam_keluar) {
             $status = 'tidak hadir';
             $namaMk = $mahasiswa['nama_mk'];
+            } else if ($status = 'hadir') {
+            $status = 'sudah';
+            $namaMk = $mahasiswa['nama_mk'];
             }
         }
 
@@ -50,10 +53,12 @@ class AbsensiController extends BaseController
 
         
         if ($status == 'hadir'){
-            return json_encode(array('status' => 'success', 'msg' => 'Presensi '.$namaMk.  ' Berhasil'));
             $presensiData->updateStatusByIdWaktuPresensi($id_waktu_presensi, $nim);
+            return json_encode(array('status' => 'success', 'msg' => 'Presensi '.$namaMk.  ' Berhasil'));
         } else if ($status == 'tidak hadir'){
             return json_encode(array('status' => 'error', 'msg' => 'Anda Sudah Melakukan Presensi '.$namaMk. ' Pada Tanggal '. $date. ' Jam '. date('H:i:s')));
+        }else if ($status == 'sudah'){
+            return json_encode(array('status' => 'error', 'msg' => 'Anda Sudah Melakukan Presensi '.$namaMk));
         }
         return json_encode($data);
     }

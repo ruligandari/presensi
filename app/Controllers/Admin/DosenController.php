@@ -27,7 +27,7 @@ class DosenController extends BaseController
         $nip = $this->request->getPost('nip');
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+        $password = $this->request->getVar('password');
         $data = [
             'nama' => $nama,
             'nip' => $nip,
@@ -53,7 +53,7 @@ class DosenController extends BaseController
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
-        $passwordBaru = $this->request->getPost('password_baru');
+        $passwordBaru = $this->request->getVar('password_baru');
         if($passwordBaru == null){
             $data = [
                 'nama' => $nama,
